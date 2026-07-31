@@ -1,9 +1,10 @@
 import { Router } from "express";
-import * as authServices from "./services/register.service.js"
+import * as registerServices from "./services/register.service.js"
+import * as loginServices from "./services/login.service.js"
 const router = Router()
 
-router.post("/signup", authServices.signUp)
-router.post("/confirm-email", authServices.confirmEmail)
-router.post("/login", authServices.login)
+router.post("/signup", registerServices.signUp)
+router.post("/confirm-email", registerServices.confirmEmail)
+router.post("/login", loginServices.login)
 
 export default router

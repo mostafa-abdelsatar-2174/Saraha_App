@@ -21,7 +21,6 @@ const userSchema = new mongoose.Schema({
     },
     role:{
         type:String,
-        required:true,
         enum:Object.values(userRoles),
         default:userRoles.user,
         trim:true
@@ -35,13 +34,10 @@ const userSchema = new mongoose.Schema({
     age:{
         type:Number,
         required:true,
-        trim:true
     },
     confirmEmail:{
         type:Boolean,
-        required:true,
         default:false,
-        trim:true   
     }
 },{
     timestamps:true

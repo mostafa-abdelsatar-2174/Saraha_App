@@ -1,8 +1,5 @@
 import nodemailer from "nodemailer"
 
-
-
-
 export const sendEmail = async ({ to="", cc="", bcc="", subject="Saraha_App", text="", html="", attachments = []} = {}) => {
     try {
         const transporter = nodemailer.createTransport({
@@ -17,8 +14,6 @@ export const sendEmail = async ({ to="", cc="", bcc="", subject="Saraha_App", te
                 rejectUnauthorized: false 
             }
         });
-
-        // console.log({html});
 
         const info = await transporter.sendMail({
             from: `"Saraha APP" <${process.env.COMPANY_EMAIL}>`,
