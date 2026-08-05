@@ -29,7 +29,7 @@ export const sendEmail = async ({ to="", cc="", bcc="", subject="Saraha_App", te
     }
 }
 
-export const HTMLFormat = ({header, description, link, button})=>{
+export const HTMLFormat = ({header, description, link="", button}={})=>{
     return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#faebd7; padding:40px 20px;">
     <tr>
         <td align="center">

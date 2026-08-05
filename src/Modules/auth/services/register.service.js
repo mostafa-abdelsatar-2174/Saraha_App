@@ -8,10 +8,7 @@ import { verfiyToken } from "../../../utils/security/token.js"
 
 
 export const signUp = asyncHandler(async(req, res, next) =>{
-    const {userName, email, password, phone, DOB} = req.body
-    if (!userName || !email || !password || !phone || !DOB) {
-        return next(new Error("enter all required feilds", {cause:400}))
-    }
+    const {userName, email, password, confirmPassword, phone, DOB} = req.body
     if (await userModel.findOne({email},{userName:1, _id:0})) {
         return next(new Error("email not valid", {cause:400}))
     }  
@@ -25,9 +22,6 @@ export const signUp = asyncHandler(async(req, res, next) =>{
 
 export const confirmEmail = asyncHandler(async (req, res, next)=>{
     const {authorization} = req.headers
-    if (!authorization) {
-        return next(new Error("enter confirm token"))
-    }
     const confirmDecode = verfiyToken({token:authorization, secretKey:process.env.JWT_CONFIRM_EMAIL_TOKEN_KEY})
     if (!confirmDecode?.email) {
         return next(new Error("in-valid confirm token",{cause:401}))

@@ -6,11 +6,11 @@ import { verfiyToken } from "../../utils/security/token.js"
 
 export const userRoles = {
     user:"User",
-    admin:"Admin"
+    admin:"Admin",
+    superAdmin:"SuperAdmin"
 }
 
 export const authentication = asyncHandler(async (req, res, next) =>{
-    // const {authorization} = req.headers
     const [bearer, token] = req.headers.authorization?.split(" ") || [] 
     if (!bearer || !token) {
         return next(new Error("please enter valid token"))
@@ -30,9 +30,13 @@ export const authentication = asyncHandler(async (req, res, next) =>{
     if (!decode?._id) {
         return next(new Error("in-valid token payload"))
     }
-    const user = await userModel.findById(decode._id,{userName:1, email:1, phone:1, age:1, role:1, confirmEmail:1})
+    const user = await userModel.findById(decode._id,{userName:1, email:1, phone:1, age:1, role:1, confirmEmail:1, sensitiveUpdateTime:1 })
     if (!user) {
         return next(new Error("not registed",{cause:404}))
+    }
+    //            ms            ==>>    s * 1000
+    if (user.sensitiveUpdateTime >= decode.iat*1000) {
+        return next(new Error("this token had expired, login again"))
     }
     req.user = user
     return next()

@@ -16,8 +16,7 @@ const userSchema = new mongoose.Schema({
     password:{
         type:String,
         minLength:[8,"minmum length is 8 for password"],
-        required:true,
-        trim:true
+        required:true
     },
     role:{
         type:String,
@@ -38,7 +37,8 @@ const userSchema = new mongoose.Schema({
     confirmEmail:{
         type:Boolean,
         default:false,
-    }
+    },
+    sensitiveUpdateTime:Date
 },{
     timestamps:true
 })
