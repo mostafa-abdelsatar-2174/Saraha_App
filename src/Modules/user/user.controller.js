@@ -16,6 +16,12 @@ router.get(
   userServices.getProfile,
 );
 
+router.get(
+  "/profile/:userId",
+  validation(validators.shareProfile_v),
+  userServices.shareProfile
+);
+
 router.patch(
   "/update-profile",
   validation(validators.updateProfile_v),
@@ -35,6 +41,32 @@ router.patch(
   validation(validators.updateEmail_v),
   authentication,
   userServices.confirmNewEmail,
+);
+
+router.patch(
+  "/change-pass",
+  validation(validators.changePassword_v),
+  authentication,
+  userServices.changePassword,
+);
+
+router.delete(
+  "/freeze",
+  validation(validators.freezeUser_v),
+  authentication,
+  userServices.freezeUser,
+);
+
+router.get(
+  "/unfreeze-otp",
+  validation(validators.unFreezeUserOTP_v),
+  userServices.unFreezeUserOTP,
+);
+
+router.post(
+  "/confirm-unfreeze",
+  validation(validators.confirmUnFreeze_v),
+  userServices.unFreezeconfirm,
 );
 
 router.delete(

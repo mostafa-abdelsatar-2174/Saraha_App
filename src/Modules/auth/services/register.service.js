@@ -4,7 +4,7 @@ import { asyncHandler } from "../../../utils/error/error.js"
 import { generateEncryption } from "../../../utils/security/cryptHandler.js"
 import { generateHash } from "../../../utils/security/hashHandler.js"
 import { successResponse } from "../../../utils/response/success.response.js"
-import { verfiyToken } from "../../../utils/security/token.js"
+import { verifyToken } from "../../../utils/security/token.js"
 
 
 export const signUp = asyncHandler(async(req, res, next) =>{
@@ -20,9 +20,24 @@ export const signUp = asyncHandler(async(req, res, next) =>{
     return successResponse({res, status:201, message:"Done, signUp successfuly"})
 })
 
+export const resendConfirmOTP = asyncHandler(
+    async(req, res, next)=>{
+        const {email} = req.body
+        const user = await userModel.findOne({email},{userName:1, confirmEmail:1, _id:0})
+        if (!user) {
+            return next(new Error("email not valid", {cause:400}))
+        } 
+        if (user.confirmEmail) {
+            return next(new Error("not unconfirmed email", {cause:400}))
+        }  
+        confirmEmailEvent.emit("sendConfirmEmail",email)
+        return successResponse({res, message:"Done, confirm OTP resended"})
+    }
+)
+
 export const confirmEmail = asyncHandler(async (req, res, next)=>{
     const {authorization} = req.headers
-    const confirmDecode = verfiyToken({token:authorization, secretKey:process.env.JWT_CONFIRM_EMAIL_TOKEN_KEY})
+    const confirmDecode = verifyToken({token:authorization, secretKey:process.env.JWT_CONFIRM_EMAIL_TOKEN_KEY})
     if (!confirmDecode?.email) {
         return next(new Error("in-valid confirm token",{cause:401}))
     }

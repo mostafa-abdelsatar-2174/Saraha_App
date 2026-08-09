@@ -38,7 +38,11 @@ const userSchema = new mongoose.Schema({
         type:Boolean,
         default:false,
     },
-    sensitiveUpdateTime:Date
+    sensitiveUpdateTime:Date,
+    isDeleted:{
+        type:Boolean,
+        default:false
+    }
 },{
     timestamps:true
 })

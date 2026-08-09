@@ -30,11 +30,11 @@ export const sendEmail = async ({ to="", cc="", bcc="", subject="Saraha_App", te
 }
 
 export const HTMLFormat = ({header, description, link="", button}={})=>{
-    return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#faebd7; padding:40px 20px;">
+    return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background: linear-gradient(90deg,rgba(15, 110, 148, 1) 0%, rgba(43, 181, 176, 1) 55%, rgba(109, 159, 179, 1) 69%, rgba(255, 229, 0, 1) 100%); padding:40px 20px;">
     <tr>
         <td align="center">
 
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="500" style="background:#faebd7;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="850" style="background:#00000000;">
                 
                 <tr>
                     <td align="center" style="padding-bottom:20px;">
@@ -55,7 +55,7 @@ export const HTMLFormat = ({header, description, link="", button}={})=>{
                 <tr>
                     <td align="center" style="
                         padding:20px 10px;
-                        font-size:24px;
+                        font-size:28px;
                         font-family:Arial,Helvetica,sans-serif;
                         color:#333333;
                     ">

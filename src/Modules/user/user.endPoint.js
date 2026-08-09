@@ -6,5 +6,7 @@ export const userAccessRoles = {
 }
 
 export const OTPTypes = {
-    changeEmail: 'change-email'
+    changeEmail: 'change-email', 
+    forgetPassword: 'forget-password',
+    unFreeze: 'un-freeze'
 }
