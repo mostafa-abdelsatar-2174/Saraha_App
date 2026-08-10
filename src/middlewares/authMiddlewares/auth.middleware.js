@@ -32,7 +32,7 @@ export const authentication = asyncHandler(async (req, res, next) => {
   if (!decode?._id) {
     return next(new Error("in-valid token payload"));
   }
-  const user = await userModel.findById(decode._id, {
+  const user = await userModel.findOne({_id:decode._id, isDeleted:false}, {
     userName: 1,
     email: 1,
     phone: 1,
@@ -42,7 +42,7 @@ export const authentication = asyncHandler(async (req, res, next) => {
     sensitiveUpdateTime: 1,
   });
   if (!user) {
-    return next(new Error("not registed", { cause: 404 }));
+    return next(new Error("in-valid account", { cause: 404 }));
   }
   //            ms            ==>>    s * 1000
   if (user.sensitiveUpdateTime >= decode.iat * 1000) {

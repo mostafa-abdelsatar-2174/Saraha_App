@@ -24,6 +24,7 @@ export const generalFields = {
     'accept-language': Joi.string().valid("en", "ar").required(),
     token: Joi.string(),
     OTP:Joi.string().pattern(/^[0-9]{6}$/),
+    message: Joi.string().min(5).max(5000).trim(true)
 }
 
 

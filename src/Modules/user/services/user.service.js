@@ -1,3 +1,4 @@
+import messageModel from "../../../DB/models/Message.model.js";
 import OTPModel from "../../../DB/models/OTP.model.js";
 import userModel from "../../../DB/models/User.model.js";
 import { asyncHandler } from "../../../utils/error/error.js";
@@ -18,7 +19,9 @@ export const getProfile = asyncHandler(async (req, res, next) => {
   if (!req.user.confirmEmail) {
     return next(new Error("confirm your email first"));
   }
-  return successResponse({ res, message: "DONE", data: { You: req.user } });
+  req.user.phone = generateDecryption({cipherText:req.user.phone })
+  const yourMessages = await messageModel.find({receiverId: req.user._id})
+  return successResponse({ res, message: "DONE", data: { You: req.user , yourMessages} });
 });
 
 export const shareProfile = asyncHandler(async (req, res, next) => {

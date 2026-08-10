@@ -7,6 +7,6 @@ export default async function DBConnection() {
         console.log("DB connection DONE");
         return mongoose.connection.db
     } catch (error) {
-        console.log("DB connection Faild", error);
+        console.log("DB connection Faild");
     }
 }
